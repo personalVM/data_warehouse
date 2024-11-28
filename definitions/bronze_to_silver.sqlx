@@ -1,0 +1,10 @@
+config {
+    type: "table"
+}
+
+CREATE OR REPLACE TABLE
+  `personalvm1.silver.df_locations_micro` AS
+SELECT
+  *
+FROM
+  `personalvm1.bronze.df_locations_micro`

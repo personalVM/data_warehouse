@@ -1,0 +1,5 @@
+defaultProject: personalvm1
+defaultLocation: us-west4
+defaultDataset: dataform
+defaultAssertionDataset: dataform_assertions
+dataformCoreVersion: 3.0.0

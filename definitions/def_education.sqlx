@@ -1,0 +1,10 @@
+config {
+  type: "table",
+  schema: "bronze",
+  name: "df_education_micro"
+}
+
+SELECT *
+FROM bronze.df_education_micro
+
+

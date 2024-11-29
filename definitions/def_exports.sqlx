@@ -1,0 +1,11 @@
+config {
+  type: "table",
+  schema: "bronze",
+  name: "df_exports_micro"
+}
+
+SELECT *
+FROM bronze.df_exports_micro
+
+
+

@@ -1,0 +1,14 @@
+config {
+  type: "table",
+  schema: "bronze",
+  name: "df_immigrants_micro"
+}
+
+SELECT *
+FROM bronze.df_immigrants_micro
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+config {
+  type: "table",
+  schema: "bronze",
+  name: "df_nationalAccounts_micro"
+}
+
+SELECT *
+FROM bronze.df_nationalAccounts_micro

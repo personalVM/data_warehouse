@@ -4,12 +4,28 @@ config {
   name: "df_all"
 }
 
-CREATE OR REPLACE TABLE `personalvm1.silver.df_all` AS
 SELECT 
-  a.cd_micro,
+  location.cd_micro,
+  location.nm_micro,
+  location.cd_meso,
+  location.nm_meso,
+  location.cd_state,
+  location.sg_state,
+  location.nm_state,
+  location.cd_region,
+  location.sg_region,
+  location.nm_region,
   b.brazilians, 
   b.emig_total,
-  c.exports
-FROM ${ref('bronze', 'df_locations_micro')} AS a
-INNER JOIN ${ref('bronze', 'df_emigrants_micro')} AS b ON a.cd_micro = b.cd_micro
-INNER JOIN ${ref('bronze', 'df_exports_micro')} AS c ON a.cd_micro = c.cd_micro
+  c.exports,
+  d.inhabitants_with_higherEducation_total,
+  e.immigrants,
+  f.gdp
+FROM ${ref('bronze', 'df_locations_micro')} AS location
+INNER JOIN ${ref('bronze', 'df_emigrants_micro')} AS b ON location.cd_micro = b.cd_micro
+INNER JOIN ${ref('bronze', 'df_exports_micro')} AS c ON location.cd_micro = c.cd_micro
+INNER JOIN ${ref('bronze', 'df_education_micro')} AS d ON location.cd_micro = d.cd_micro
+INNER JOIN ${ref('bronze', 'df_immigrants_micro')} AS e ON location.cd_micro = e.cd_micro
+INNER JOIN ${ref('bronze', 'df_nationalAccounts_micro')} AS f ON location.cd_micro = f.cd_micro
+
+

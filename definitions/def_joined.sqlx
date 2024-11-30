@@ -1,10 +1,10 @@
 config {
-  type: "table",
-  schema: "silver",
-  name: "df_joined"
+    type: "table",
+    schema: "silver",
+    name: "df_joined"
 }
 
-SELECT 
+SELECT
   loc.cd_micro,
   loc.nm_micro,
   loc.cd_meso,
@@ -15,6 +15,8 @@ SELECT
   loc.cd_region,
   loc.sg_region,
   loc.nm_region,
+  imig.immigrants,
+  exp.year, -- TODO: verify whether this is the best way.
   emig.inhabitants,
   emig.brazilians,
   emig.brazilian_native,
@@ -64,21 +66,68 @@ SELECT
   emig.emig_new_zealand,
   emig.emig_other_oceanian_countries,
   emig.emig_not_declared,
-  -- c.exports,
-  exp.exports, 
+  educ.inhabitants_with_higherEducation_total,
+  educ.inhabitants_with_higherEducation_total,
+  educ.inhabitants_with_higherEducation_education,
+  educ.inhabitants_with_higherEducation_humanities_arts,
+  educ.inhabitants_with_higherEducation_socialSciences_business_law,
+  educ.inhabitants_with_higherEducation_math_computing,
+  educ.inhabitants_with_higherEducation_engineering_production_construction,
+  educ.inhabitants_with_higherEducation_agriculture_veterinary,
+  educ.inhabitants_with_higherEducation_health_socialWellBeing,
+  educ.inhabitants_with_higherEducation_services,
+  educ.inhabitants_with_bachelors_total,
+  educ.inhabitants_with_bachelors_education,
+  educ.inhabitants_with_bachelors_humanities_arts,
+  educ.inhabitants_with_bachelors_socialSciences_business_law,
+  educ.inhabitants_with_bachelors_math_computing,
+  educ.inhabitants_with_bachelors_engineering_production_construction,
+  educ.inhabitants_with_bachelors_agriculture_veterinary,
+  educ.inhabitants_with_bachelors_health_socialWellBeing,
+  educ.inhabitants_with_bachelors_services,
+  educ.inhabitants_with_masters_total,
+  educ.inhabitants_with_masters_education,
+  educ.inhabitants_with_masters_humanities_arts,
+  educ.inhabitants_with_masters_socialSciences_business_law,
+  educ.inhabitants_with_masters_math_computing,
+  educ.inhabitants_with_masters_engineering_production_construction,
+  educ.inhabitants_with_masters_agriculture_veterinary,
+  educ.inhabitants_with_masters_health_socialWellBeing,
+  educ.inhabitants_with_masters_services,
+  educ.inhabitants_with_phd_total,
+  educ.inhabitants_with_phd_education,
+  educ.inhabitants_with_phd_humanities_arts,
+  educ.inhabitants_with_phd_socialSciences_business_law,
+  educ.inhabitants_with_phd_math_computing,
+  educ.inhabitants_with_phd_engineering_production_construction,
+  educ.inhabitants_with_phd_agriculture_veterinary,
+  educ.inhabitants_with_phd_health_socialWellBeing,
+  educ.inhabitants_with_phd_services,
+  educ.inhabitants_without_fundamental_education,
+  educ.inhabitants_with_fundamental_education,
+  educ.inhabitants_with_middle_education,
+  educ.inhabitants_with_higher_education,
+  natacc.gdp,
+  natacc.taxes,
+  natacc.addedValue,
+  natacc.addedValue_agriculture,
+  natacc.addedValue_industry,
+  natacc.addedValue_services,
+  natacc.addedValue_government,
+  exp.exports,
   exp.exports_sh2_01,
   exp.exports_sh2_02,
-  exp.exports_sh2_03, 
+  exp.exports_sh2_03,
   exp.exports_sh2_04,
   exp.exports_sh2_05,
   exp.exports_sh2_06,
   exp.exports_sh2_07,
-  exp.exports_sh2_08, 
+  exp.exports_sh2_08,
   exp.exports_sh2_09,
   exp.exports_sh2_10,
   exp.exports_sh2_11,
   exp.exports_sh2_12,
-  exp.exports_sh2_13, 
+  exp.exports_sh2_13,
   exp.exports_sh2_14,
   exp.exports_sh2_15,
   exp.exports_sh2_16,
@@ -88,7 +137,7 @@ SELECT
   exp.exports_sh2_20,
   exp.exports_sh2_21,
   exp.exports_sh2_22,
-  exp.exports_sh2_23, 
+  exp.exports_sh2_23,
   exp.exports_sh2_24,
   exp.exports_sh2_25,
   exp.exports_sh2_26,
@@ -1426,16 +1475,16 @@ SELECT
   exp.exports_sh4_9992,
   exp.exports_sh4_9997,
   exp.exports_sh4_9998,
-  exp.exports_sh4_9999,
--- exp.year
-  d.inhabitants_with_higherEducation_total,
-  e.immigrants,
-  f.gdp
+  exp.exports_sh4_9999
 FROM ${ref('bronze', 'df_locations_micro')} AS loc
+INNER JOIN ${ref('bronze', 'df_immigrants_micro')} AS imig ON loc.cd_micro = imig.cd_micro
 INNER JOIN ${ref('bronze', 'df_emigrants_micro')} AS emig ON loc.cd_micro = emig.cd_micro
+INNER JOIN ${ref('bronze', 'df_education_micro')} AS educ ON loc.cd_micro = educ.cd_micro
+INNER JOIN ${ref('bronze', 'df_nationalAccounts_micro')} AS natacc ON loc.cd_micro = natacc.cd_micro
 INNER JOIN ${ref('bronze', 'df_exports_micro')} AS exp ON loc.cd_micro = exp.cd_micro
-INNER JOIN ${ref('bronze', 'df_education_micro')} AS d ON loc.cd_micro = d.cd_micro
-INNER JOIN ${ref('bronze', 'df_immigrants_micro')} AS e ON loc.cd_micro = e.cd_micro
-INNER JOIN ${ref('bronze', 'df_nationalAccounts_micro')} AS f ON loc.cd_micro = f.cd_micro
+
+
+
+
 
 
